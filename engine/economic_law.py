@@ -5,7 +5,7 @@ import requests
 import pandas as pd
 
 BASE = "https://financialmodelingprep.com/stable"
-API_KEY = os.environ("FMP_API_KEY")  # set in env
+API_KEY = os.getenv("FMP_API_KEY")  # set in env
 EPS = 1e-6
 
 
@@ -218,5 +218,6 @@ if __name__ == "__main__":
     import sys
     t = sys.argv[1].upper() if len(sys.argv) > 1 else "AAPL"
     print(latest_snapshot(t, wacc=0.09))
+
 
 
