@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: stock-engine-api
+    env: python
+    buildCommand: ""
+    startCommand: python -m uvicorn engine.api:app --host 0.0.0.0 --port $PORT
