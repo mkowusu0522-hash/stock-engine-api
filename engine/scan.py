@@ -4,6 +4,7 @@ from datetime import datetime
 from pathlib import Path
 
 from .__main__ import run
+from .notify import send_text
 
 ENGINE_DIR = Path(__file__).resolve().parent
 TICKERS_FILE = ENGINE_DIR / "tickers.txt"
@@ -125,7 +126,8 @@ def main() -> None:
     print(f"Total Scanned: {total_scanned}")
     print(f"Total PASS (decision_alloc): {len(passes)}")
 
-    if passes:
+    if True:
+        send_text("ENGINE TEST ALERT")
         print("Tickers:")
         for p in passes:
             print(f" - {p}")
@@ -135,5 +137,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
