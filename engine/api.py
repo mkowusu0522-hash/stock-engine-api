@@ -5,20 +5,18 @@ app = FastAPI()
 
 @app.get("/stock/{ticker}")
 def stock_judgment(ticker: str):
-    result = run(ticker.upper())
-    return result
+    return run(ticker.upper())
 
 @app.get("/scan")
 def scan_market():
-    from .scan import read_tickers, TICKERS_FILE, scan_tickers
-    tickers = read_tickers(TICKERS_FILE)
-    return scan_tickers(tickers)
+    from .scan import main
+    return main()
 
 @app.get("/allocations")
 def allocations():
-    from .scan import main; return main()
+    from .scan import load_sp500, scan_tickers
 
-    tickers = read_tickers(TICKERS_FILE)
+    tickers = [t.replace(".", "-") for t in load_sp500()]
     results = scan_tickers(tickers)
 
     return [
@@ -27,8 +25,3 @@ def allocations():
         and r.get("survivability_pass")
         and r.get("economic_quality_pass")
     ]
-
-
-
-
-
