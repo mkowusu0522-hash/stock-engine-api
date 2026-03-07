@@ -40,6 +40,28 @@ def read_tickers(path: Path) -> list[str]:
             out.append(t)
     return out
 
+def scan_tickers(tickers: list[str]) -> list[dict]:
+    results = []
+
+    for t in tickers:
+        try:
+            out = run(t)
+            results.append({
+                "ticker": t,
+                "judgment_verdict": out.get("judgment_verdict"),
+                "price_pass": out.get("price_pass"),
+                "survivability_pass": out.get("survivability_pass"),
+                "economic_quality_pass": out.get("economic_quality_pass"),
+                "roic_hit_rate": out.get("roic_hit_rate"),
+            })
+        except Exception as e:
+            results.append({
+                "ticker": t,
+                "error": str(e),
+            })
+
+    return results
+
 def main() -> None:
     tickers = read_tickers(TICKERS_FILE)
 
@@ -106,3 +128,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
