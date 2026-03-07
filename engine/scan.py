@@ -10,6 +10,13 @@ TICKERS_FILE = ENGINE_DIR / "tickers.txt"
 PORTFOLIO_LOG = ENGINE_DIR / "portfolio_log.csv"
 ERROR_LOG = ENGINE_DIR / "scan_errors.csv"
 
+import pandas as pd
+
+def load_sp500():
+    url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+    table = pd.read_html(url)[0]
+    return table["Symbol"].tolist()
+
 
 def ensure_csv(path: Path, headers: list[str]) -> None:
     if not path.exists():
@@ -63,7 +70,7 @@ def scan_tickers(tickers: list[str]) -> list[dict]:
     return results
 
 def main() -> None:
-    tickers = read_tickers(TICKERS_FILE)
+    tickers = [t.replace(".", "-") for t in load_sp500()]
 
     today = datetime.now().strftime("%Y-%m-%d")
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -128,4 +135,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
