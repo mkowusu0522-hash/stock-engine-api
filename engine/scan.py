@@ -14,9 +14,9 @@ ERROR_LOG = ENGINE_DIR / "scan_errors.csv"
 import pandas as pd
 
 def load_sp500():
-    url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-    table = pd.read_html(url)[0]
-    return table["Symbol"].tolist()
+    url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
+    df = pd.read_csv(url)
+    return df["Symbol"].astype(str).tolist()
 
 
 def ensure_csv(path: Path, headers: list[str]) -> None:
@@ -137,6 +137,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
