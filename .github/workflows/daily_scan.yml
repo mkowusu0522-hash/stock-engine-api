@@ -1,0 +1,15 @@
+name: Daily Engine Scan
+
+on:
+  schedule:
+    - cron: "0 13 * * *"   # runs every day at 13:00 UTC
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call engine API
+        run: |
+          curl https://stock-engine-api.onrender.com/scan
