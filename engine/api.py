@@ -16,7 +16,7 @@ def scan_market():
 
 @app.get("/allocations")
 def allocations():
-    from .scan import read_tickers, TICKERS_FILE, scan_tickers
+    from .scan import main; return main()
 
     tickers = read_tickers(TICKERS_FILE)
     results = scan_tickers(tickers)
@@ -27,6 +27,7 @@ def allocations():
         and r.get("survivability_pass")
         and r.get("economic_quality_pass")
     ]
+
 
 
 
