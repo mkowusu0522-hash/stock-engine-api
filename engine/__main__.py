@@ -62,8 +62,10 @@ def run(ticker: str, wacc: float = 0.09, stability_window_q: int = 12, min_hit_r
 
         "survivability_pass": bool(r["survivability_pass"]),
         "economic_quality_pass": bool(r["economic_quality_pass"]),
+        "decision_stable": str(r.get("decision_stable", "FAIL")),
         "price_pass": price_pass,
         "required_return": required_return,
+        "decision_alloc": decision_alloc,
         "judgment_verdict": judgment_verdict,
     }
 
